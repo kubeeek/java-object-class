@@ -1,24 +1,26 @@
 package agh.ics.oop;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+
 public class World {
+    static HashSet<String> allowedArgs = new HashSet<>(Arrays.asList("f", "r", "d", "l"));
+
     public static void main(String[] args) {
-        System.out.println("start");
+        System.out.println("Start");
 
-        for (String arg :
-                args) {
-            Direction direction = null;
+        List<Direction> directions = Arrays.stream(args)
+                .map(String::toLowerCase)
+                .filter(element -> allowedArgs.contains(element))
+                .map(ArgumentParser::parseArgument).toList();
 
-            switch (arg) {
-                case "f" -> direction = Direction.FORWARD;
-                case "b" -> direction = Direction.BACKWARD;
-                case "r" -> direction = Direction.RIGHT;
-                case "l" -> direction = Direction.LEFT;
-            }
-
-            if (direction != null)
-                run(direction);
+        for (Direction direction :
+                directions) {
+            run(direction);
         }
-        System.out.println("end");
+
+        System.out.println("End");
 
     }
 
