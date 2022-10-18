@@ -8,20 +8,11 @@ public class World {
     static HashSet<String> allowedArgs = new HashSet<>(Arrays.asList("f", "r", "d", "l"));
 
     public static void main(String[] args) {
-        System.out.println("Start");
-
-        List<Direction> directions = Arrays.stream(args)
-                .map(String::toLowerCase)
-                .filter(element -> allowedArgs.contains(element))
-                .map(ArgumentParser::parseArgument).toList();
-
-        for (Direction direction :
-                directions) {
-            run(direction);
-        }
-
-        System.out.println("End");
-
+        Vector2d position1 = new Vector2d(1,2);
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        System.out.println(position1.add(position2));
     }
 
     public static void run(Direction direction) {
