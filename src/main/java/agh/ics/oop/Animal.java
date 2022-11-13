@@ -5,11 +5,7 @@ import static agh.ics.oop.MapDirection.NORTH;
 public class Animal {
     private IWorldMap map;
     private MapDirection heading = NORTH;
-    private Vector2d position;
-
-    Animal() {
-        position = new Vector2d(2, 2);
-    }
+    private Vector2d position = new Vector2d(2, 2);
 
     Animal(MapDirection heading, Vector2d position) {
         this.heading = heading;
