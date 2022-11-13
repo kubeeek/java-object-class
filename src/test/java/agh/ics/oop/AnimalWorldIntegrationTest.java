@@ -13,7 +13,7 @@ public class AnimalWorldIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        testAnimal = new Animal();
+        testAnimal = new Animal(new RectangularMap(4, 4));
         testOptionsParser = new OptionsParser();
     }
 

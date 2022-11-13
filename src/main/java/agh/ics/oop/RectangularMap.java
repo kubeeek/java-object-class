@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 public class RectangularMap implements IWorldMap {
     private final Vector2d upperRight;
@@ -10,7 +11,7 @@ public class RectangularMap implements IWorldMap {
 
     RectangularMap(int width, int height) {
         this.lowerLeft = new Vector2d(0, 0);
-        this.upperRight = new Vector2d(width - 1, height - 1);
+        this.upperRight = new Vector2d(width, height);
     }
 
     @Override
@@ -35,7 +36,9 @@ public class RectangularMap implements IWorldMap {
 
     @Override
     public Object objectAt(Vector2d position) {
-        return mapObjectSet.stream().filter(element -> element.isAt(position)).toList().get(0);
+            var optional = mapObjectSet.stream().filter(element -> element.isAt(position)).findFirst();
+
+            return optional.isPresent() ? optional.get() : null;
     }
 
     @Override
