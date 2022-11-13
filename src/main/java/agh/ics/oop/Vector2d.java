@@ -1,7 +1,7 @@
 package agh.ics.oop;
 
 public class Vector2d {
-    final public int x;
+    public int x;
     final public int y;
 
 
@@ -11,11 +11,11 @@ public class Vector2d {
     }
 
     boolean precedes(Vector2d other) {
-        return (other.x <= this.x) && (other.y <= this.y);
+        return (this.x <= other.x) && (this.y <= other.y);
     }
 
     boolean follows(Vector2d other) {
-        return (other.x >= this.x) && (other.y >= this.y);
+        return (this.x >= other.x) && (this.y >= other.y);
     }
 
     Vector2d add(Vector2d other) {
