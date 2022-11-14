@@ -15,7 +15,7 @@ public class AnimalSimulationEngineIntegrationTest {
     @BeforeEach
     void setUp() {
         testOptionsParser = new OptionsParser();
-        map = new RectangularMap(5, 10);
+        map = new RectangularMap(10, 5);
     }
 
     @Test
@@ -29,13 +29,31 @@ public class AnimalSimulationEngineIntegrationTest {
         IEngine engine = new SimulationEngine(directions, this.map, positions);
         engine.run();
 
-        Animal testedAnimal = (Animal) this.map.objectAt(new Vector2d(2, 7));
+        Animal testedAnimal = (Animal) this.map.objectAt(new Vector2d(3, 5));
         assertNotNull(testedAnimal);
 
-        testedAnimal = (Animal) this.map.objectAt(new Vector2d(3, 0));
+        testedAnimal = (Animal) this.map.objectAt(new Vector2d(2, 0));
         assertNotNull(testedAnimal);
 
-        testedAnimal = (Animal) this.map.objectAt(new Vector2d(3, 1));
+        testedAnimal = (Animal) this.map.objectAt(new Vector2d(2, 1));
         assertNull(testedAnimal);
+    }
+
+    @Test
+    void testIfAnimalsCanOverlap() {
+        String[] args = "f f f f f f l l l f".split(" ");
+
+
+        ArrayList<MoveDirection> directions = new OptionsParser().parse(args);
+        ArrayList<Vector2d> positions = new ArrayList<>(Arrays.asList(new Vector2d(2, 2), new Vector2d(3, 2)));
+
+        IEngine engine = new SimulationEngine(directions, this.map, positions);
+        engine.run();
+
+        Animal testedAnimal = (Animal) this.map.objectAt(new Vector2d(2, 5));
+        assertNotNull(testedAnimal);
+
+        testedAnimal = (Animal) this.map.objectAt(new Vector2d(3, 5));
+        assertNotNull(testedAnimal);
     }
 }
