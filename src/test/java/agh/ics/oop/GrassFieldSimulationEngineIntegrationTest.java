@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class AnimalSimulationEngineIntegrationTest {
+public class GrassFieldSimulationEngineIntegrationTest {
     OptionsParser testOptionsParser;
-    IWorldMap map;
+    AbstractWorldMap map;
 
     @BeforeEach
     void setUp() {
         testOptionsParser = new OptionsParser();
-        map = new RectangularMap(10, 5);
+        map = new GrassField(10);
     }
 
     @Test
@@ -26,13 +26,13 @@ public class AnimalSimulationEngineIntegrationTest {
         ArrayList<MoveDirection> directions = new OptionsParser().parse(args);
         ArrayList<Vector2d> positions = new ArrayList<>(Arrays.asList(new Vector2d(2, 2), new Vector2d(3, 4)));
 
-        IEngine engine = new SimulationEngine(directions, (AbstractWorldMap) this.map, positions);
+        IEngine engine = new SimulationEngine(directions, this.map, positions);
         engine.run();
 
-        Animal testedAnimal = (Animal) this.map.objectAt(new Vector2d(3, 5));
+        Animal testedAnimal = (Animal) this.map.objectAt(new Vector2d(3, 7));
         assertNotNull(testedAnimal);
 
-        testedAnimal = (Animal) this.map.objectAt(new Vector2d(2, 0));
+        testedAnimal = (Animal) this.map.objectAt(new Vector2d(2, -1));
         assertNotNull(testedAnimal);
 
         testedAnimal = (Animal) this.map.objectAt(new Vector2d(2, 1));
@@ -47,7 +47,7 @@ public class AnimalSimulationEngineIntegrationTest {
         ArrayList<MoveDirection> directions = new OptionsParser().parse(args);
         ArrayList<Vector2d> positions = new ArrayList<>(Arrays.asList(new Vector2d(2, 2), new Vector2d(3, 2)));
 
-        IEngine engine = new SimulationEngine(directions, (AbstractWorldMap) this.map, positions);
+        IEngine engine = new SimulationEngine(directions, this.map, positions);
         engine.run();
 
         Animal testedAnimal = (Animal) this.map.objectAt(new Vector2d(2, 5));
@@ -56,4 +56,5 @@ public class AnimalSimulationEngineIntegrationTest {
         testedAnimal = (Animal) this.map.objectAt(new Vector2d(3, 5));
         assertNotNull(testedAnimal);
     }
+
 }

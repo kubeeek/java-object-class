@@ -32,9 +32,9 @@ public class Vector2dTest {
         Vector2d less = new Vector2d(0, 0);
         Vector2d more = new Vector2d(5, 5);
 
-        assertTrue(this.vector2d.precedes(less));
-        assertFalse(this.vector2d.precedes(more));
-        assertTrue(this.vector2d.precedes(this.vector2d));
+        assertTrue(this.vector2d.precedes(more));
+        assertFalse(this.vector2d.precedes(less));
+
     }
 
     @Test
@@ -42,9 +42,8 @@ public class Vector2dTest {
         Vector2d less = new Vector2d(0, 0);
         Vector2d more = new Vector2d(5, 5);
 
-        assertFalse(this.vector2d.follows(less));
-        assertTrue(this.vector2d.follows(more));
-        assertTrue(this.vector2d.follows(this.vector2d));
+        assertTrue(this.vector2d.follows(less));
+        assertFalse(this.vector2d.follows(more));
     }
 
     @Test

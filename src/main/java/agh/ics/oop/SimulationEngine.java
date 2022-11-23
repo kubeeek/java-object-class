@@ -6,10 +6,10 @@ import java.util.ArrayList;
 public class SimulationEngine implements IEngine {
 
     private final ArrayList<MoveDirection> directions;
-    private final IWorldMap map;
+    private final AbstractWorldMap map;
     private final ArrayList<Vector2d> positions;
 
-    SimulationEngine(ArrayList<MoveDirection> directions, IWorldMap map, ArrayList<Vector2d> positions) {
+    SimulationEngine(ArrayList<MoveDirection> directions, AbstractWorldMap map, ArrayList<Vector2d> positions) {
         this.directions = directions;
         this.map = map;
         this.positions = positions;
