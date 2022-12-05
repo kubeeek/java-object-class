@@ -32,17 +32,20 @@ public class GrassField extends AbstractWorldMap implements IPositionChangeListe
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return !this.mapElementsMap.containsKey(position) && !(this.mapElementsMap.get(position) instanceof Animal);
+        if(this.mapElementsMap.containsKey(position))
+            return !(this.mapElementsMap.get(position) instanceof Animal);
+
+        return true;
     }
+
 
     @Override
     public AbstractWorldMapElement objectAt(Vector2d position) {
         var element = super.objectAt(position);
 
-        if (element != null)
-            return element;
 
-        return null;
+
+        return element;
     }
 
     @Override
@@ -60,22 +63,23 @@ public class GrassField extends AbstractWorldMap implements IPositionChangeListe
 
     @Override
     public void positionChanged(AbstractWorldMapElement object, Vector2d oldPosition, Vector2d newPosition) {
-        super.positionChanged(object, oldPosition, newPosition);
-
-        // eat grass
+        // eat grass first, then move animal
         AbstractWorldMapElement grassElement = this.objectAt(newPosition);
 
-        if (grassElement != null && grassElement instanceof Grass) {
-            this.deleteObject(oldPosition, object);
-            this.generateNewGrass();
+        if (grassElement instanceof Grass) {
+            this.deleteObject(newPosition);
         }
+
+        this.deleteObject(oldPosition);
+        this.placeAt((Animal) object, newPosition);
+        this.generateNewGrass();
     }
 
     private void generateNewGrass() {
         Random random = new Random();
         Vector2d randomPosition = new Vector2d(random.nextInt(max), random.nextInt(max));
 
-        while (mapElementsMap.containsKey(randomPosition) || this.mapElementsMap.containsKey(randomPosition)) {
+        while (this.mapElementsMap.containsKey(randomPosition)) {
             randomPosition = new Vector2d(random.nextInt(max), random.nextInt(max));
 
         }

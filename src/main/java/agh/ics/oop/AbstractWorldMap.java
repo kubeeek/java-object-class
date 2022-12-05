@@ -35,15 +35,12 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeList
 
     @Override
     public AbstractWorldMapElement objectAt(Vector2d position) {
-        if(this.mapElementsMap.containsKey(position))
-            return this.mapElementsMap.get(position);
-
-        return null;
+        return this.mapElementsMap.get(position);
     }
 
     @Override
-    public boolean deleteObject(Vector2d position, AbstractWorldMapElement object) {
-        return this.mapElementsMap.remove(position, object);
+    public AbstractWorldMapElement deleteObject(Vector2d position) {
+        return this.mapElementsMap.remove(position);
     }
 
     @Override
@@ -55,8 +52,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeList
     public void positionChanged(AbstractWorldMapElement object, Vector2d oldPosition, Vector2d newPosition) {
         AbstractWorldMapElement mapElement = this.objectAt(oldPosition);
 
-        if (mapElement != null && mapElement instanceof Animal) {
-            this.deleteObject(oldPosition, object);
+        if (mapElement instanceof Animal) {
+            this.deleteObject(oldPosition);
             this.placeAt((Animal) object, newPosition);
         }
     }

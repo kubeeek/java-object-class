@@ -46,6 +46,6 @@ public interface IWorldMap {
      */
     Object objectAt(Vector2d position);
 
-    boolean deleteObject(Vector2d position, AbstractWorldMapElement object);
+    AbstractWorldMapElement deleteObject(Vector2d position);
 
 }

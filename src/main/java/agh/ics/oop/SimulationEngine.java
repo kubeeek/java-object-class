@@ -33,8 +33,8 @@ public class SimulationEngine implements IEngine {
 
         int counter = 0;
         while (!directionQueue.isEmpty()) {
-
-            Animal animal = animalList.get(counter % animalList.size());
+            int index = counter % animalList.size();
+            Animal animal = animalList.get(index);
             animal.move(directionQueue.poll());
             counter++;
         }
