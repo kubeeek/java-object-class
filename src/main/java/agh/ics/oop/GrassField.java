@@ -7,10 +7,12 @@ import java.util.Random;
 public class GrassField extends AbstractWorldMap implements IPositionChangeListener {
     private final int grassCount;
     private final int max;
+    private final MapBoundary mapBoundary;
 
     GrassField(int grassCount) {
         this.grassCount = grassCount;
         this.max = (int) Math.sqrt(grassCount * 10);
+        this.mapBoundary = new MapBoundary();
 
         this.init();
     }
@@ -50,19 +52,15 @@ public class GrassField extends AbstractWorldMap implements IPositionChangeListe
 
     @Override
     public String toString() {
-        for (Map.Entry<Vector2d, AbstractWorldMapElement> mapElement : this.mapElementsMap.entrySet()) {
-            if (!(mapElement instanceof Animal))
-                continue;
-
-            this.upperRight = this.upperRight.upperRight(mapElement.getValue().getPosition());
-            this.lowerLeft = this.lowerLeft.lowerLeft(mapElement.getValue().getPosition());
-        }
+        this.lowerLeft = new Vector2d(this.mapBoundary.xSet.first().getPosition().x, this.mapBoundary.ySet.first().getPosition().y);
+        this.upperRight = new Vector2d(this.mapBoundary.xSet.last().getPosition().x, this.mapBoundary.ySet.last().getPosition().y);
 
         return super.toString();
     }
 
     @Override
     public void positionChanged(AbstractWorldMapElement object, Vector2d oldPosition, Vector2d newPosition) {
+        this.mapBoundary.positionChanged(object, oldPosition, newPosition);
         // eat grass first, then move animal
         AbstractWorldMapElement grassElement = this.objectAt(newPosition);
 
