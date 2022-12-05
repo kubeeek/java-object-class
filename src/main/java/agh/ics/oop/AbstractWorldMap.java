@@ -10,18 +10,21 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeList
     protected Vector2d upperRight = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
 
     @Override
-    public boolean place(Animal animal) {
-        if (isOccupied(animal.getPosition()))
-            return false;
+    public boolean place(Animal animal) throws IllegalArgumentException {
+        var position = animal.getPosition();
 
-        mapElementsMap.put(animal.getPosition(), animal);
+        if (isOccupied(position))
+            throw new IllegalArgumentException("Cant place animal." + position + " is occupied.");
+
+        mapElementsMap.put(position, animal);
 
         return true;
     }
 
-    public boolean placeAt(Animal animal, Vector2d position) {
+    public boolean placeAt(Animal animal, Vector2d position) throws IllegalArgumentException {
         if (isOccupied(position))
-            return false;
+            throw new IllegalArgumentException("Cant place animal at: " + position + ". ");
+
 
         mapElementsMap.put(position, animal);
 
@@ -39,7 +42,10 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeList
     }
 
     @Override
-    public AbstractWorldMapElement deleteObject(Vector2d position) {
+    public AbstractWorldMapElement deleteObject(Vector2d position) throws IllegalArgumentException {
+        if(!this.mapElementsMap.containsKey(position))
+            throw new IllegalArgumentException("Cant delete object at" + position + ". It does not exist");
+
         return this.mapElementsMap.remove(position);
     }
 

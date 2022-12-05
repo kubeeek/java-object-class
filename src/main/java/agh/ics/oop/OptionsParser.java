@@ -3,7 +3,7 @@ package agh.ics.oop;
 import java.util.ArrayList;
 
 class OptionsParser {
-    public static ArrayList<MoveDirection> parse(String[] arguments) {
+    public static ArrayList<MoveDirection> parse(String[] arguments) throws IllegalArgumentException {
         ArrayList<MoveDirection> directions = new ArrayList<>();
 
         for (String argument :
@@ -15,10 +15,10 @@ class OptionsParser {
                 case "b", "backward" -> direction = MoveDirection.BACKWARD;
                 case "r", "right" -> direction = MoveDirection.RIGHT;
                 case "l", "left" -> direction = MoveDirection.LEFT;
+                default -> throw new IllegalArgumentException(argument + " is not legal move specification");
             }
 
-            if (direction != null)
-                directions.add(direction);
+            directions.add(direction);
         }
 
 

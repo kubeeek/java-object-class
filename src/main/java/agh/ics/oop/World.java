@@ -5,14 +5,21 @@ import java.util.Arrays;
 
 public class World {
     public static void main(String[] args) {
-        ArrayList<MoveDirection> directions = new OptionsParser().parse(args);
-        AbstractWorldMap map = new GrassField(10);
-        ArrayList<Vector2d> positions = new ArrayList<>(Arrays.asList(new Vector2d(2, 2), new Vector2d(3, 4)));
 
-        IEngine engine = new SimulationEngine(directions, map, positions);
-        engine.run();
+        try {
+            ArrayList<MoveDirection> directions = new OptionsParser().parse(args);
+            AbstractWorldMap map = new GrassField(10);
+            ArrayList<Vector2d> positions = new ArrayList<>(Arrays.asList(new Vector2d(2, 2), new Vector2d(3, 4)));
 
-        System.out.println(map);
+            IEngine engine = new SimulationEngine(directions, map, positions);
+            engine.run();
+
+            System.out.println(map);
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.getMessage());
+            return;
+        }
+
     }
 
 }
