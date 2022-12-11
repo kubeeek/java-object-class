@@ -88,7 +88,6 @@ public class App extends Application {
 
                     Object gameElement = this.map.objectAt(currentMapPosition);
                     grid.add(new Label(gameElement.toString()), x - lowerLeft.x + 1, upperRight.y - y + 1);
-                    System.out.println("Mapa: %d, %d;".formatted(currentMapPosition.x, currentMapPosition.y));
                 }
             }
         }
