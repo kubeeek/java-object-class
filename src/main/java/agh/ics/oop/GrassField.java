@@ -7,9 +7,9 @@ import java.util.Random;
 public class GrassField extends AbstractWorldMap implements IPositionChangeListener {
     private final int grassCount;
     private final int max;
-    private final MapBoundary mapBoundary;
+        private      MapBoundary mapBoundary;
 
-    GrassField(int grassCount) {
+    public GrassField(int grassCount) {
         this.grassCount = grassCount;
         this.max = (int) Math.sqrt(grassCount * 10);
         this.mapBoundary = new MapBoundary();
@@ -17,6 +17,14 @@ public class GrassField extends AbstractWorldMap implements IPositionChangeListe
         this.init();
     }
 
+    @Override
+    public boolean place(Animal animal) throws IllegalArgumentException {
+        super.place(animal);
+
+        this.mapBoundary.positionChanged(animal, new Vector2d(0, 0), new Vector2d(0, 0));
+
+        return true;
+    }
     private void init() {
         Random random = new Random();
 
@@ -51,9 +59,19 @@ public class GrassField extends AbstractWorldMap implements IPositionChangeListe
     }
 
     @Override
+    public Vector2d getLowerLeft() {
+        return new Vector2d(this.mapBoundary.xSet.first().getPosition().x, this.mapBoundary.ySet.first().getPosition().y);
+    }
+
+    @Override
+    public Vector2d getUpperRight() {
+        return new Vector2d(this.mapBoundary.xSet.last().getPosition().x, this.mapBoundary.ySet.last().getPosition().y);
+    }
+
+    @Override
     public String toString() {
-        this.lowerLeft = new Vector2d(this.mapBoundary.xSet.first().getPosition().x, this.mapBoundary.ySet.first().getPosition().y);
-        this.upperRight = new Vector2d(this.mapBoundary.xSet.last().getPosition().x, this.mapBoundary.ySet.last().getPosition().y);
+        this.lowerLeft = getLowerLeft();
+        this.upperRight = getUpperRight();
 
         return super.toString();
     }
