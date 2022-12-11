@@ -63,4 +63,14 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeList
             this.placeAt((Animal) object, newPosition);
         }
     }
+
+    @Override
+    public Vector2d getLowerLeft() {
+        return this.lowerLeft;
+    }
+
+    @Override
+    public Vector2d getUpperRight() {
+        return this.upperRight;
+    }
 }
