@@ -9,7 +9,7 @@ public class SimulationEngine implements IEngine {
     private final AbstractWorldMap map;
     private final ArrayList<Vector2d> positions;
 
-    SimulationEngine(ArrayList<MoveDirection> directions, AbstractWorldMap map, ArrayList<Vector2d> positions) {
+    public SimulationEngine(ArrayList<MoveDirection> directions, AbstractWorldMap map, ArrayList<Vector2d> positions) {
         this.directions = directions;
         this.map = map;
         this.positions = positions;

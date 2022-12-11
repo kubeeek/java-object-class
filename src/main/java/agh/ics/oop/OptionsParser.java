@@ -2,7 +2,7 @@ package agh.ics.oop;
 
 import java.util.ArrayList;
 
-class OptionsParser {
+public class OptionsParser {
     public static ArrayList<MoveDirection> parse(String[] arguments) throws IllegalArgumentException {
         ArrayList<MoveDirection> directions = new ArrayList<>();
 
