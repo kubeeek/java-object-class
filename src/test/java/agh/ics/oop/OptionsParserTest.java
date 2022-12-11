@@ -11,7 +11,7 @@ public class OptionsParserTest {
     @Test
     @DisplayName("OptionsParser properly parses valid input string")
     void testParseTrue() {
-        String[] inputString = "f forward x y z backward b left r l right".split(" ");
+        String[] inputString = "f forward backward b left r l right".split(" ");
         List<MoveDirection> expectedOutput =
                 List.of(new MoveDirection[]{
                         MoveDirection.FORWARD,
@@ -45,8 +45,6 @@ public class OptionsParserTest {
                         MoveDirection.FORWARD,
                 });
 
-        List actualOuput = OptionsParser.parse(inputString);
-
-        assertNotEquals(expectedOutput, actualOuput);
+        assertThrows(IllegalArgumentException.class, () -> OptionsParser.parse(inputString));
     }
 }
