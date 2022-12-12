@@ -3,9 +3,12 @@ package agh.ics.oop;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import static agh.ics.oop.Comparators.comparatorX;
+import static agh.ics.oop.Comparators.comparatorY;
+
 public class MapBoundary implements IPositionChangeListener {
-    SortedSet<AbstractWorldMapElement> xSet = new TreeSet<>(MapBoundary::comparatorByX);
-    SortedSet<AbstractWorldMapElement> ySet = new TreeSet<>(MapBoundary::comparatorByY);
+    SortedSet<AbstractWorldMapElement> xSet = new TreeSet<>(comparatorX);
+    SortedSet<AbstractWorldMapElement> ySet = new TreeSet<>(comparatorY);
 
     static int comparatorByX(AbstractWorldMapElement a, AbstractWorldMapElement b) {
         var posA = a.getPosition();
