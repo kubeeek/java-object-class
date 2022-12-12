@@ -61,17 +61,29 @@ public class Animal extends AbstractWorldMapElement {
         return this.position;
     }
 
-    private void addListener(IPositionChangeListener listener) {
+    public void addListener(IPositionChangeListener listener) {
         this.listeners.add(listener);
     }
 
-    private void removeListener(IPositionChangeListener listener) {
+    public void removeListener(IPositionChangeListener listener) {
         this.listeners.remove(listener);
     }
 
     private void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
         for (IPositionChangeListener observer : this.listeners)
             observer.positionChanged(this, oldPosition, newPosition);
+    }
+
+    @Override
+    public String toImagePath() {
+        String path = "src/main/resources/";
+
+        return switch (this.heading) {
+            case NORTH -> path + "up.png";
+            case SOUTH -> path + "down.png";
+            case WEST -> path + "left.png";
+            case EAST -> path + "right.png";
+        };
     }
 
     @Override
@@ -82,5 +94,10 @@ public class Animal extends AbstractWorldMapElement {
             case WEST -> "<";
             case EAST -> ">";
         };
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }

@@ -11,4 +11,9 @@ public class AbstractWorldMapElement implements IMapElement {
     public boolean isAt(Vector2d position) {
         return this.position.equals(position);
     }
+
+    @Override
+    public String toImagePath() {
+        throw new UnsupportedOperationException();
+    }
 }
