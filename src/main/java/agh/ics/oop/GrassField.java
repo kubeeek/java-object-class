@@ -29,14 +29,6 @@ public class GrassField extends AbstractWorldMap implements IPositionChangeListe
         for (int i = 0; i < grassCount; i++) {
             generateNewGrass();
         }
-
-    }
-
-    @Override
-    public boolean isOccupied(Vector2d position) {
-        var element = this.mapElementsMap.get(position);
-
-        return element instanceof Animal;
     }
 
     @Override
